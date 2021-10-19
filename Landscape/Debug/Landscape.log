@@ -1,0 +1,8 @@
+﻿  Landscape.cpp
+D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(43,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(64,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(78,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(93,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(136,28): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(136,21): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+  Landscape.vcxproj -> D:\PROJECTS\C++\Landscape\Debug\Landscape.exe
