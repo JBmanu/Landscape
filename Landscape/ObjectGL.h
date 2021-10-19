@@ -105,6 +105,22 @@ void build_circle(ObjectGL* fig, float cx, float cy, float r, vec4 color) {
 }
 
 
+void build_palaEolica(ObjectGL* fig, float cx, float cy, float r, vec4 color) {
+	fig->nTriangles = 12;
+	fig->step = (PI / 4) / fig->nTriangles;
+	fig->vertici.push_back(vec3(cx, cy, 0.0));
+	fig->colors.push_back(vec4(1.0, 0, 0, 1.0));
+	float t;
+	for (int i = 0; i <= fig->nTriangles; i++)
+	{
+		t = (float)i * fig->step;
+		fig->vertici.push_back(vec3(cx + (cos(t) * r), cy + (sin(t) * r), 0.0));
+		//Colore 
+		fig->colors.push_back(color);
+	}
+	fig->nv = fig->vertici.size();
+}
+
 void build_square(ObjectGL* fig, vec4 p1, vec4 p2, vec4 p3, vec4 p4) {
 	fig->nTriangles = 2;
 
@@ -158,4 +174,5 @@ void crea_VAO_Vector(ObjectGL* fig)
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(1);
 }
+
 #endif 

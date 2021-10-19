@@ -1,0 +1,17 @@
+﻿  Landscape.cpp
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(37,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(43,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(58,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(64,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(74,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(78,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(89,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(93,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(104,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(110,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(121,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(137,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\ObjectGL.h(154,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\Landscape.cpp(170,28): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Desktop\Landscape\Landscape\Landscape.cpp(170,21): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+  Landscape.vcxproj -> C:\Users\buizo\Desktop\Landscape\x64\Debug\Landscape.exe

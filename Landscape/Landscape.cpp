@@ -16,6 +16,7 @@ ObjectGL Ground = {};
 ObjectGL Sky = {};
 ObjectGL Mountains = {};
 ObjectGL Palo = {};
+ObjectGL PalaEolica = {};
 ObjectGL Sun = {};
 ObjectGL Ball = {};
 
@@ -61,6 +62,9 @@ void INIT_VAO(void)
 	build_circle(&Ball, 0.0f, 0.0f, 10.0f, vec4(139 / 255.0, 0 / 255.0, 0 / 255.0, 1.0));
 	crea_VAO_Vector(&Ball);
 
+	build_palaEolica(&PalaEolica, 0.0f, 0.0f, 10.0f, vec4(139 / 255.0, 0 / 255.0, 0 / 255.0, 1.0));
+	crea_VAO_Vector(&PalaEolica);
+
 	//build_mountains(&Mountains, 10, 0.0f, 0.0f);
 	//crea_VAO_Vector(&Mountains);
 
@@ -90,6 +94,9 @@ void drawScene(void)
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Sky.Model));
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Sky.nv);
 
+
+
+
 	for (int i = 0; i < 5; i++)
 	{
 		glBindVertexArray(Palo.VAO);
@@ -99,6 +106,14 @@ void drawScene(void)
 		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Palo.Model));
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, Palo.nv);
 	}
+
+	glBindVertexArray(PalaEolica.VAO);
+	PalaEolica.Model = mat4(1.0);
+	PalaEolica.Model = translate(PalaEolica.Model, vec3(width * 0.5, height * 0.5, 0.0));
+	PalaEolica.Model = scale(PalaEolica.Model, vec3(10.0, 10.0, 1.0));
+	PalaEolica.Model = rotate(PalaEolica.Model, radians(angolo), vec3(1.0, 1.0, 1.0));
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(PalaEolica.Model));
+	glDrawArrays(GL_TRIANGLE_FAN, 0, PalaEolica.nv);
 
 	//glBindVertexArray(Mountains.VAO);
 	//Mountains.Model = mat4(1.0);
@@ -116,12 +131,31 @@ void drawScene(void)
 
 	glBindVertexArray(Ball.VAO);
 	Ball.Model = mat4(1.0);
-	Ball.Model = translate(Ball.Model, vec3(width / 2, height / 2.5f, 0.0));
+	Ball.Model = translate(Ball.Model, vec3((width / 2) + dx, (height / 2.5f) + dy, 0.0));
 	Ball.Model = scale(Ball.Model, vec3(3.0, 3.0, 1.0));
 	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Ball.Model));
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Ball.nv);
 
 	glutSwapBuffers();
+}
+
+void keyboardPressedEvent(unsigned char key, int x, int y) {
+	switch (key)
+	{
+	case 'a': dx -= 2.0f; break;
+	case 'd': dx += 2.0f; break;
+	case 'w': dy += 2.0f; break;
+	case 's': dy -= 2.0f; break;
+	default:
+		break;
+	}
+	glutPostRedisplay();
+}
+
+void update_Pale(int a) {
+	angolo += 1.0f;
+	glutPostRedisplay();
+	glutTimerFunc(24, update_Pale, 0);
 }
 
 int main(int argc, char* argv[])
@@ -137,6 +171,8 @@ int main(int argc, char* argv[])
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Paesaggio");
 	glutDisplayFunc(drawScene);
+	glutKeyboardFunc(keyboardPressedEvent);
+	glutTimerFunc(66, update_Pale, 0);
 
 	glewExperimental = GL_TRUE;
 	glewInit();
