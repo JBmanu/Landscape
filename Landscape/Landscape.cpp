@@ -21,7 +21,7 @@ ObjectGL OmbraAlone = {};
 EqFisic Jump = {};
 
 
-float heighPiano = 100.0f;
+float heighPiano = 200.0f;
 float widthPiano = WIDTH / 2.0f;
 
 void INIT_SHADER(void)
@@ -72,7 +72,7 @@ void INIT_VAO(void)
 	create_VAO_VBO_vertex(&OmbraAlone);
 
 	Jump.a = -9.81f;
-	Jump.e = 80.0f;
+	Jump.e = 100.0f;
 	set_eq_init(&Jump, widthPiano, heighPiano, 80.0f, 0.0f);
 	
 	Projection = ortho(0.0f, WIDTH, 0.0f, HEIGHT);
@@ -159,25 +159,19 @@ void drawScene(void)
 
 void keyboardPressedEvent(unsigned char key, int x, int y) {
 	switch (key) {
-		case 'a': Jump.e += 10.0f; break;
-		case 'd': Jump.e -= 10.0f; break;
+		case 'a': Jump.e += 5.0f; break;
+		case 'd': Jump.e -= 5.0f; break;
 	}
 	glutPostRedisplay();
 }
 
 void jump_ball(int a) {
-	compute_eq_y(&Jump);
-	compute_eq_x(&Jump);
+	Ball.dy = compute_eq_y(&Jump);
+	Ombra.dx = OmbraAlone.dx = Ball.dx = compute_eq_x(&Jump);
 	Jump.t += 0.07;
 
-	//Ball.dy = Ball.dy < heighPiano ? heighPiano : heighPiano + Jump.y;
-	Ball.dy = Jump.y;
-	Ombra.dx = OmbraAlone.dx = Ball.dx = Jump.x;
-
-	if (Ball.dy < heighPiano)
-	{
+	if (Ball.dy < heighPiano) {
 		set_eq_init(&Jump, Ball.dx, Ball.dy, 80.0f, 0);
-		printf("%f  --  %f", Ball.dy, heighPiano);
 		heighPiano = Ball.dy;
 	}
 	

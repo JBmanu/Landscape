@@ -15,12 +15,14 @@ typedef struct {
 } EqFisic;
 
 
-void compute_eq_y(EqFisic* eq) {
+float compute_eq_y(EqFisic* eq) {
 	eq->y = eq->yo + (sin(radians(eq->e)) * (eq->t * eq->vo)) + ((eq->a * pow(eq->t, 2)) / 2);
+	return eq->y;
 }
 
-void compute_eq_x(EqFisic* eq) {
+float compute_eq_x(EqFisic* eq) {
 	eq->x = eq->xo + (cos(radians(eq->e)) * (eq->t * eq->vo));
+	return eq->x;
 }
 
 void compute_tocca(EqFisic* eq) {
