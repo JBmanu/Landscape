@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Lib.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
@@ -35,5 +32,11 @@
     <ClInclude Include="ShaderMaker.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Fisic.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

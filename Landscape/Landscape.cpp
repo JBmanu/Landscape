@@ -1,16 +1,12 @@
 #include <iostream>
 #include "ObjectGL.h"
+#include "Fisic.h"
 #include "ShaderMaker.h"
 
 static unsigned int programId;
 
-float width = 1280.0f;
-float height = 720.0f;
 mat4 Projection;
 GLuint MatProj, MatModel;
-float angolo = 0.0;
-float dx = 0.0, dy = 0.0;
-
 
 ObjectGL Ground = {};
 ObjectGL Sky = {};
@@ -18,7 +14,15 @@ ObjectGL Mountains = {};
 ObjectGL Palo = {};
 ObjectGL PalaEolica = {};
 ObjectGL Sun = {};
+ObjectGL SunAlone = {};
 ObjectGL Ball = {};
+ObjectGL Ombra = {};
+ObjectGL OmbraAlone = {};
+EqFisic Jump = {};
+
+
+float heighPiano = 100.0f;
+float widthPiano = WIDTH / 2.0f;
 
 void INIT_SHADER(void)
 {
@@ -33,129 +37,158 @@ void INIT_SHADER(void)
 
 void INIT_VAO(void)
 {
-	build_square(&Ground,
-		vec4(28 / 255.0f, 84 / 255.0f, 045 /255.0f, 1.0),
-		vec4(28 / 255.0f, 84 / 255.0f, 045 /255.0f, 1.0),
-		vec4(28 / 255.0f, 84 / 255.0f, 045 /255.0f, 1.0),
-		vec4(0, 1, 0, 1.0));
-	crea_VAO_Vector(&Ground);
+	build_square(&Ground,vec_RGBA(28, 84, 45), vec_RGBA(28, 84, 45), vec_RGBA(28, 84, 45), vec_RGBA(0, 255, 0));
+	create_VAO_VBO_vertex(&Ground);
 
-	build_square(&Sky,
-		vec4(0 / 255.0f, 128 / 255.0f, 255 / 255.0f, 1.0),
-		vec4(0 / 255.0f, 128 / 255.0f, 255 / 255.0f, 1.0),
-		vec4(0 / 255.0f, 128 / 255.0f, 255 / 255.0f, 1.0),
-		vec4(0 / 255.0f, 128 / 255.0f, 255 / 255.0f, 1.0));
-	crea_VAO_Vector(&Sky);
+	build_square(&Sky, vec_RGBA(0, 128, 255), vec_RGBA(0, 128, 255), vec_RGBA(138, 43, 226), vec_RGBA(138, 43, 226));
+	create_VAO_VBO_vertex(&Sky);
 
-	build_square(&Palo,
-		vec4(0, 1.0, 0, 1.0),
-		vec4(0, 1.0, 0, 1.0),
-		vec4(0, 1.0, 0, 1.0),
-		vec4(0, 1.1, 0, 1.0));
-	crea_VAO_Vector(&Palo);
+	build_square(&Palo, vec_RGBA(105, 105, 105), vec_RGBA(105, 105, 105), vec_RGBA(105, 105, 105), vec_RGBA(105, 105, 105));
+	create_VAO_VBO_vertex(&Palo);
 
-	Sun.nTriangles = 100;
-	build_circle(&Sun, 0.0f, 0.0f, 10.0f, vec4(237 / 255.0f, 1.0, 033 / 255.0f, 1.0));
-	crea_VAO_Vector(&Sun);
+	build_circle(&Sun, 100, 10.0f, vec_RGBA(255, 140, 0, 255), vec_RGBA(255, 255, 255, 255));
+	create_VAO_VBO_vertex(&Sun);
+	
+	build_circle(&SunAlone, 100, 12.0f, vec_RGBA(237, 255, 33, 255), vec_RGBA(237, 255, 33, 0));
+	create_VAO_VBO_vertex(&SunAlone);
 
-	Ball.nTriangles = 100;
-	build_circle(&Ball, 0.0f, 0.0f, 10.0f, vec4(139 / 255.0, 0 / 255.0, 0 / 255.0, 1.0));
-	crea_VAO_Vector(&Ball);
 
-	build_palaEolica(&PalaEolica, 0.0f, 0.0f, 10.0f, vec4(139 / 255.0, 0 / 255.0, 0 / 255.0, 1.0));
-	crea_VAO_Vector(&PalaEolica);
+	build_palaEolica(&PalaEolica, 5, 10.0f, vec_RGBA(216, 191, 216, 255), vec_RGBA(105, 105, 105, 355));
+	create_VAO_VBO_vertex(&PalaEolica);
 
-	//build_mountains(&Mountains, 10, 0.0f, 0.0f);
-	//crea_VAO_Vector(&Mountains);
+	build_mountain(&Mountains, 20, vec_RGBA(205, 133, 63, 255), vec_RGBA(139, 69, 19, 255));
+	create_VAO_VBO_vertex(&Mountains);
 
-	Projection = ortho(0.0f, float(width), 0.0f, float(height));
+	build_circle(&Ball, 100, 10.0f, vec_RGBA(255, 0, 0, 255), vec_RGBA(139, 0, 0, 255));
+	set_value_transfom_2D(&Ball, widthPiano, heighPiano, 3.0f, 3.0f, 0.0f);
+	create_VAO_VBO_vertex(&Ball);
+
+	build_circle(&Ombra, 100, 10.0f, vec_RGBA(0, 0, 0, 255), vec_RGBA(0, 0, 0, 255));
+	set_value_transfom_2D(&Ombra, widthPiano, heighPiano, 3.0f, 3.0f, 0.0f);
+	create_VAO_VBO_vertex(&Ombra);
+
+	build_circle(&OmbraAlone, 100, 10.0f, vec_RGBA(59, 50, 50, 255), vec_RGBA(0, 0, 0, 0));
+	set_value_transfom_2D(&OmbraAlone, widthPiano, heighPiano, Ombra.scalex, 3.0f, 0.0f);
+	create_VAO_VBO_vertex(&OmbraAlone);
+
+	Jump.a = -9.81f;
+	Jump.e = 80.0f;
+	set_eq_init(&Jump, widthPiano, heighPiano, 80.0f, 0.0f);
+	
+	Projection = ortho(0.0f, WIDTH, 0.0f, HEIGHT);
 	MatProj = glGetUniformLocation(programId, "Projection");
 	MatModel = glGetUniformLocation(programId, "Model");
-
-	glClearColor(1.0, 1.0, 1.0, 1.0);
 }
 
 void drawScene(void)
 {
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
 
 	glBindVertexArray(Ground.VAO);
-	Ground.Model = mat4(1.0);
-	Ground.Model = scale(Ground.Model, vec3(width, height / 2, 1.0));
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Ground.Model));
+	set_value_transfom_2D(&Ground, 0.0f, 0.0f, WIDTH, HEIGHT * 0.5f, 0.0f);
+	transform(&Ground, MatModel);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Ground.nv);
 
 	glBindVertexArray(Sky.VAO);
-	Sky.Model = mat4(1.0);
-	Sky.Model = translate(Sky.Model, vec3(width*0.0, height*0.5, 0.0));
-	Sky.Model = scale(Sky.Model, vec3(width, height / 2, 1.0));
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Sky.Model));
+	set_value_transfom_2D(&Sky, 0.0f, HEIGHT * 0.5f, WIDTH, HEIGHT * 0.5f, 0.0f);
+	transform(&Sky, MatModel);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, Sky.nv);
 
 
-
-
-	for (int i = 0; i < 5; i++)
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glLineWidth(3.0);
+	for (int i = 0; i < 6; i++)
 	{
-		glBindVertexArray(Palo.VAO);
-		Palo.Model = mat4(1.0);
-		Palo.Model = translate(Palo.Model, vec3(50.0f * 2.0 * (i+1), height * 0.5, 0.0));
-		Palo.Model = scale(Palo.Model, vec3(width / 100, height / 5, 1.0));
-		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Palo.Model));
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, Palo.nv);
+		glBindVertexArray(Mountains.VAO);
+		set_value_transfom_2D(&Mountains, (213.0f * i), (HEIGHT / 2.0f), 428.0f, 120.0f, 0.0f);
+		transform(&Mountains, MatModel);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, Mountains.nv);
 	}
 
-	glBindVertexArray(PalaEolica.VAO);
-	PalaEolica.Model = mat4(1.0);
-	PalaEolica.Model = translate(PalaEolica.Model, vec3(width * 0.5, height * 0.5, 0.0));
-	PalaEolica.Model = scale(PalaEolica.Model, vec3(10.0, 10.0, 1.0));
-	PalaEolica.Model = rotate(PalaEolica.Model, radians(angolo), vec3(1.0, 1.0, 1.0));
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(PalaEolica.Model));
-	glDrawArrays(GL_TRIANGLE_FAN, 0, PalaEolica.nv);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//glBindVertexArray(Mountains.VAO);
-	//Mountains.Model = mat4(1.0);
-	//Mountains.Model = scale(Mountains.Model, vec3(width, height / 2, 0.0));
-	//glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Mountains.Model));
-	//glDrawArrays(GL_TRIANGLE_STRIP, 0, Mountains.nv);
+
+	for (int i = 0; i < 7; i++)
+	{
+		glBindVertexArray(Palo.VAO);
+		set_value_transfom_2D(&Palo, (160.0f * (i + 1)), (HEIGHT / 2.0f), WIDTH / 100.0f, HEIGHT / 6.0f, 0.0f);
+		transform(&Palo, MatModel);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, Palo.nv);
+
+		glBindVertexArray(PalaEolica.VAO);
+		set_value_transfom_2D(&PalaEolica, (160.0f * (i + 1)) + (WIDTH / 250.0), (HEIGHT * 0.66), 5.0f, 5.0f, PalaEolica.angle);
+		transform(&PalaEolica, MatModel);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, PalaEolica.nv);
+	}
+
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	glBindVertexArray(Sun.VAO);
-	Sun.Model = mat4(1.0);
-	Sun.Model = translate(Sun.Model, vec3(width / 2, height / 1.15, 0.0));
-	Sun.Model = scale(Sun.Model, vec3(3.0, 3.0, 1.0));
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Sun.Model));
+	set_value_transfom_2D(&Sun, WIDTH * 0.5f, HEIGHT / 1.10, 3.0f, 3.0f, 0.0f);
+	transform(&Sun, MatModel);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Sun.nv);
 
 
+	glBindVertexArray(SunAlone.VAO);
+	set_value_transfom_2D(&SunAlone, WIDTH * 0.5f, HEIGHT / 1.10, 6.0f, 6.0f, 0.0f);
+	transform(&SunAlone, MatModel);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, SunAlone.nv);
+
+
+	glBindVertexArray(OmbraAlone.VAO);
+	set_value_transfom_2D(&OmbraAlone, OmbraAlone.dx, OmbraAlone.dy, (Ball.dy / 50.0f), (Ball.dy / 150), 0.0f);
+	transform(&OmbraAlone, MatModel);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, OmbraAlone.nv);
+
+	glBindVertexArray(Ombra.VAO);
+	set_value_transfom_2D(&Ombra, Ombra.dx, Ombra.dy, (Ball.dy / 150.0f), (Ball.dy / 350), 0.0f);
+	transform(&Ombra, MatModel);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, Ombra.nv);
+
 	glBindVertexArray(Ball.VAO);
-	Ball.Model = mat4(1.0);
-	Ball.Model = translate(Ball.Model, vec3((width / 2) + dx, (height / 2.5f) + dy, 0.0));
-	Ball.Model = scale(Ball.Model, vec3(3.0, 3.0, 1.0));
-	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Ball.Model));
+	set_value_transfom_2D(&Ball, Ball.dx, Ball.dy, Ball.scalex, Ball.scaley, 0.0f);
+	transform(&Ball, MatModel);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, Ball.nv);
+
 
 	glutSwapBuffers();
 }
 
 void keyboardPressedEvent(unsigned char key, int x, int y) {
-	switch (key)
-	{
-	case 'a': dx -= 2.0f; break;
-	case 'd': dx += 2.0f; break;
-	case 'w': dy += 2.0f; break;
-	case 's': dy -= 2.0f; break;
-	default:
-		break;
+	switch (key) {
+		case 'a': Jump.e += 10.0f; break;
+		case 'd': Jump.e -= 10.0f; break;
 	}
 	glutPostRedisplay();
 }
 
-void update_Pale(int a) {
-	angolo += 1.0f;
+void jump_ball(int a) {
+	compute_eq_y(&Jump);
+	compute_eq_x(&Jump);
+	Jump.t += 0.07;
+
+	//Ball.dy = Ball.dy < heighPiano ? heighPiano : heighPiano + Jump.y;
+	Ball.dy = Jump.y;
+	Ombra.dx = OmbraAlone.dx = Ball.dx = Jump.x;
+
+	if (Ball.dy < heighPiano)
+	{
+		set_eq_init(&Jump, Ball.dx, Ball.dy, 80.0f, 0);
+		printf("%f  --  %f", Ball.dy, heighPiano);
+		heighPiano = Ball.dy;
+	}
+	
 	glutPostRedisplay();
-	glutTimerFunc(24, update_Pale, 0);
+	glutTimerFunc(1, jump_ball, 0);
+}
+
+void update_Pale(int a) {
+	PalaEolica.angle += 5.0f;
+	glutPostRedisplay();
+	glutTimerFunc(60, update_Pale, 0);
 }
 
 int main(int argc, char* argv[])
@@ -167,12 +200,15 @@ int main(int argc, char* argv[])
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	glutInitWindowSize(width, height);
+	glutInitWindowSize(WIDTH, HEIGHT);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Paesaggio");
 	glutDisplayFunc(drawScene);
 	glutKeyboardFunc(keyboardPressedEvent);
-	glutTimerFunc(66, update_Pale, 0);
+
+	glutTimerFunc(60, update_Pale, 0);
+	glutTimerFunc(60, jump_ball, 0);
+
 
 	glewExperimental = GL_TRUE;
 	glewInit();
