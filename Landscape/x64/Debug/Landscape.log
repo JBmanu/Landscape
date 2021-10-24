@@ -1,24 +1,24 @@
 ﻿  Landscape.cpp
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(12,1): warning C4005: 'RGB': ridefinizione macro
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(1856): message : vedere la precedente definizione di 'RGB'
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(56,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(66,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(80,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(89,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(101,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(110,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(121,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(138,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(144,21): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(153,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(165,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(195,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\Fisic.h(19,60): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(122,121): warning C4305: 'argomento': troncamento da 'double' a 'float'
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(122,57): warning C4244: 'argomento': conversione da 'double' a 'float'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(130,75): warning C4305: 'argomento': troncamento da 'double' a 'float'
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(136,80): warning C4305: 'argomento': troncamento da 'double' a 'float'
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(171,16): warning C4305: '+=': troncamento da 'double' a 'float'
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(197,28): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
-D:\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(197,21): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
-  Landscape.vcxproj -> D:\PROJECTS\C++\Landscape\x64\Debug\Landscape.exe
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(12,1): warning C4005: 'RGB': ridefinizione macro
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\wingdi.h(1856): message : vedere la precedente definizione di 'RGB'
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(54,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(64,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(78,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(87,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(99,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(108,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(119,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(136,23): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(142,21): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(151,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(163,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\ObjectGL.h(193,31): warning C4267: '=': conversione da 'size_t' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Fisic.h(19,60): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(106,144): warning C4305: 'argomento': troncamento da 'double' a 'float'
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(106,80): warning C4244: 'argomento': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(111,98): warning C4305: 'argomento': troncamento da 'double' a 'float'
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(112,103): warning C4305: 'argomento': troncamento da 'double' a 'float'
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(131,16): warning C4305: '+=': troncamento da 'double' a 'float'
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(157,28): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+C:\Users\buizo\Documents\PROJECTS\C++\Landscape\Landscape\Landscape.cpp(157,21): warning C4244: 'argomento': conversione da 'float' a 'int'. Possibile perdita di dati.
+  Landscape.vcxproj -> C:\Users\buizo\Documents\PROJECTS\C++\Landscape\x64\Debug\Landscape.exe

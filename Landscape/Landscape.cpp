@@ -87,25 +87,14 @@ void drawScene(void)
 
 	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));
 
-	glBindVertexArray(Ground.VAO);
-	set_value_transfom_2D(&Ground, 0.0f, 0.0f, WIDTH, HEIGHT * 0.5f, 0.0f);
-	transform(&Ground, MatModel);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Ground.nv);
+	build_vertex_draw(&Ground, MatModel, GL_TRIANGLE_STRIP, 0.0f, 0.0f, WIDTH, HEIGHT * 0.5f, 0.0f);
 
-	glBindVertexArray(Sky.VAO);
-	set_value_transfom_2D(&Sky, 0.0f, HEIGHT * 0.5f, WIDTH, HEIGHT * 0.5f, 0.0f);
-	transform(&Sky, MatModel);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, Sky.nv);
-
+	build_vertex_draw(&Sky, MatModel, GL_TRIANGLE_STRIP, 0.0f, HEIGHT * 0.5f, WIDTH, HEIGHT * 0.5f, 0.0f);
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//glLineWidth(3.0);
-	for (int i = 0; i < 6; i++)
-	{
-		glBindVertexArray(Mountains.VAO);
-		set_value_transfom_2D(&Mountains, (213.0f * i), (HEIGHT / 2.0f), 428.0f, 120.0f, 0.0f);
-		transform(&Mountains, MatModel);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, Mountains.nv);
+	for (int i = 0; i < 6; i++) {
+		build_vertex_draw(&Mountains, MatModel, GL_TRIANGLE_STRIP, (213.0f * i), (HEIGHT / 2.0f), 428.0f, 120.0f, 0.0f);
 	}
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -113,46 +102,17 @@ void drawScene(void)
 
 	for (int i = 0; i < 7; i++)
 	{
-		glBindVertexArray(Palo.VAO);
-		set_value_transfom_2D(&Palo, (160.0f * (i + 1)), (HEIGHT / 2.0f), WIDTH / 100.0f, HEIGHT / 6.0f, 0.0f);
-		transform(&Palo, MatModel);
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, Palo.nv);
-
-		glBindVertexArray(PalaEolica.VAO);
-		set_value_transfom_2D(&PalaEolica, (160.0f * (i + 1)) + (WIDTH / 250.0), (HEIGHT * 0.66), 5.0f, 5.0f, PalaEolica.angle);
-		transform(&PalaEolica, MatModel);
-		glDrawArrays(GL_TRIANGLE_FAN, 0, PalaEolica.nv);
+		build_vertex_draw(&Palo, MatModel, GL_TRIANGLE_STRIP, (160.0f * (i + 1)), (HEIGHT / 2.0f), WIDTH / 100.0f, HEIGHT / 6.0f, 0.0f);
+		build_vertex_draw(&PalaEolica, MatModel, GL_TRIANGLE_FAN, (160.0f * (i + 1)) + (WIDTH / 250.0), (HEIGHT * 0.66), 5.0f, 5.0f, PalaEolica.angle);
 	}
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	glBindVertexArray(Sun.VAO);
-	set_value_transfom_2D(&Sun, WIDTH * 0.5f, HEIGHT / 1.10, 3.0f, 3.0f, 0.0f);
-	transform(&Sun, MatModel);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, Sun.nv);
-
-
-	glBindVertexArray(SunAlone.VAO);
-	set_value_transfom_2D(&SunAlone, WIDTH * 0.5f, HEIGHT / 1.10, 6.0f, 6.0f, 0.0f);
-	transform(&SunAlone, MatModel);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, SunAlone.nv);
-
-
-	glBindVertexArray(OmbraAlone.VAO);
-	set_value_transfom_2D(&OmbraAlone, OmbraAlone.dx, OmbraAlone.dy, (Ball.dy / 50.0f), (Ball.dy / 150), 0.0f);
-	transform(&OmbraAlone, MatModel);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, OmbraAlone.nv);
-
-	glBindVertexArray(Ombra.VAO);
-	set_value_transfom_2D(&Ombra, Ombra.dx, Ombra.dy, (Ball.dy / 150.0f), (Ball.dy / 350), 0.0f);
-	transform(&Ombra, MatModel);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, Ombra.nv);
-
-	glBindVertexArray(Ball.VAO);
-	set_value_transfom_2D(&Ball, Ball.dx, Ball.dy, Ball.scalex, Ball.scaley, 0.0f);
-	transform(&Ball, MatModel);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, Ball.nv);
-
+	build_vertex_draw(&Sun, MatModel, GL_TRIANGLE_FAN, WIDTH * 0.5f, HEIGHT / 1.10, 3.0f, 3.0f, 0.0f);
+	build_vertex_draw(&SunAlone, MatModel, GL_TRIANGLE_FAN, WIDTH * 0.5f, HEIGHT / 1.10, 6.0f, 6.0f, 0.0f);
+	build_vertex_draw(&OmbraAlone, MatModel, GL_TRIANGLE_FAN, OmbraAlone.dx, OmbraAlone.dy, (Ball.dy / 50.0f), (Ball.dy / 150), 0.0f);
+	build_vertex_draw(&Ombra, MatModel, GL_TRIANGLE_FAN, Ombra.dx, Ombra.dy, (Ball.dy / 150.0f), (Ball.dy / 350), 0.0f);
+	build_vertex_draw(&Ball, MatModel, GL_TRIANGLE_FAN, Ball.dx, Ball.dy, Ball.scalex, Ball.scaley, 0.0f);
 
 	glutSwapBuffers();
 }

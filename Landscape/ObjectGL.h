@@ -13,17 +13,15 @@
 
 typedef struct 
 {
+	mat4 Model;
 	GLuint VAO;
 	GLuint VBO_G;
 	GLuint VBO_C;
-	int nTriangles;
-	// Vertici
+
 	vector<vec3> vertici;
 	vector<vec4> colors;
-	// Numero vertici
-	int nv;
-	//Matrice di Modellazione: Traslazione*Rotazione*Scala
-	mat4 Model;
+
+	int nTriangles, nv;
 	float step;
 	float dx, dy;
 	float scalex, scaley;
@@ -235,5 +233,12 @@ void transform(ObjectGL* fig, GLuint matModel) {
 	fig->Model = scale(fig->Model, vec3(fig->scalex, fig->scaley, 1.0f));
 	fig->Model = rotate(fig->Model, radians(fig->angle), vec3(0.0f, 0.0f, 1.0f));
 	glUniformMatrix4fv(matModel, 1, GL_FALSE, value_ptr(fig->Model));
+}
+
+void build_vertex_draw(ObjectGL* fig, GLuint matModel, int typeDraw, float dx, float dy, float scalex, float scaley, float angle) {
+	glBindVertexArray(fig->VAO);
+	set_value_transfom_2D(fig, dx, dy, scalex, scaley, angle);
+	transform(fig, matModel);
+	glDrawArrays(typeDraw, 0, fig->nv);
 }
 #endif 
